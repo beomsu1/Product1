@@ -3,10 +3,9 @@ import { postProduct } from "../api/productAPI";
 
 // 껍데기 생성
 const initState = {
-    title : '',
-    content : '',
-    writer : '',
-    images : []
+    pname : 'Ice Coffee',
+    pdesc : 'Coffee',
+    price : 4000
 }
 
 
@@ -17,12 +16,12 @@ const ProductInput = () => {
     const fileRef = useRef()
     
     // 오류 안뜨게 끔 설정
-    const [board , setBoard] = useState({...initState})
+    const [product , setProduct] = useState({...initState})
 
     // change 함수 생성
     const handleChange = (e) => {
-        board[e.target.name] = e.target.value
-        setBoard({...board})
+        product[e.target.name] = e.target.value
+        setProduct({...product})
     }
 
     // save 함수 생성
@@ -31,16 +30,16 @@ const ProductInput = () => {
         const formData = new FormData();
 
         // 하나씩 담아줘여함
-        formData.append("title", board.title)
-        formData.append("content", board.content)
-        formData.append("writer", board.writer)
+        formData.append("pname", product.pname)
+        formData.append("pdesc", product.pdesc)
+        formData.append("price", product.price)
 
         console.dir(fileRef.current)
 
         const arr = fileRef.current.files
         
         for(let file of arr) {
-            formData.append("images", file)
+            formData.append("files", file)
         }
 
         postProduct(formData)
@@ -56,13 +55,13 @@ const ProductInput = () => {
         <div>
             <h1>Product Input</h1>
             <div>
-                <input type="text" name="title" value={board.title} onChange={handleChange}></input>
+                <input type="text" name="pname" value={product.pname} onChange={handleChange}></input>
             </div>
             <div>
-                <input type="text" name="content" value={board.content} onChange={handleChange}></input>
+                <input type="text" name="pdesc" value={product.pdesc} onChange={handleChange}></input>
             </div>
             <div>
-                <input type="text" name="writer" value={board.writer} onChange={handleChange}></input>
+                <input type="text" name="price" value={product.price} onChange={handleChange}></input>
             </div>
             <div>
                 <input type="file" ref={fileRef} multiple name="images" onChange={handleChange}></input>

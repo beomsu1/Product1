@@ -9,7 +9,7 @@ export const postProduct = async(FormData) => {
         }
     }
 
-    const res = await axios.post(`http://localhost:8080/api/product`, FormData , header)
+    const res = await axios.post(`http://localhost:8080/api/products/`, FormData , header)
 
     return res.data
 
